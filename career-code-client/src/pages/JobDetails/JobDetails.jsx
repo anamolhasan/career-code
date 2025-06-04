@@ -16,7 +16,9 @@ const JobDetails = () => {
     // console.log(job)
   return (
     <div>
-        <h2>{title}</h2>
+        <h2 className='text-4xl'>{title}</h2>
+        <p>{company}</p>
+        <p>{description}</p>
         <Link to={`/jobApply/${_id}`}>
             <button className='btn btn-primary'>Apply Now</button>
         </Link>

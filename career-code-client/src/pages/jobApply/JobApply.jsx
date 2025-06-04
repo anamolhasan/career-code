@@ -9,7 +9,7 @@ const JobApply = () => {
 
   const { user } = useAuth();
 
-  console.log(jobId, user);
+  // console.log(jobId, user);
 
   const handleApplyFormSubmit = (e) => {
     e.preventDefault();
@@ -19,7 +19,7 @@ const JobApply = () => {
     const github = form.github.value;
     const resume = form.resume.value;
 
-    console.log(linkIn, github, resume);
+    // console.log(linkIn, github, resume);
 
     const application = {
       jobId,
@@ -46,6 +46,7 @@ const JobApply = () => {
       .catch((error) => {
         console.log(error);
       });
+
   };
   return (
     <div>
