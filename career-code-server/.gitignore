@@ -1,7 +1,10 @@
-**/node_modules/
+# Node modules
+node_modules/
 
+# Build outputs
 dist/
 build/
 
-# Firebase Admin Key
-career-code-server/firebase-admin-key.json
+# Firebase Admin Key - very sensitive
+firebase-admin-key.json
+
