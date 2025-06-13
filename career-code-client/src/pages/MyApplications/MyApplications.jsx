@@ -3,6 +3,7 @@ import ApplicationStats from './ApplicationStats'
 import ApplicationList from './ApplicationList'
 import useAuth from '../../hooks/useAuth'
 import { myApplicationsPromise } from '../../api/applicationApi'
+import Loading from '../Shared/Loading'
 
 
 
@@ -15,7 +16,7 @@ const MyApplications = () => {
   return (
     <div>
       <ApplicationStats />
-     <Suspense fallback={"loading applications"}>
+     <Suspense fallback={<Loading />}>
         <ApplicationList myApplicationsPromise={myApplicationsPromise(user.email)}/>
      </Suspense>
     </div>
