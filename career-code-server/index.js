@@ -16,10 +16,9 @@ app.use(cors({
 app.use(express.json());
 app.use(cookieParser())
 
-var admin = require("firebase-admin");
 
-var serviceAccount = require("./firebase-admin-key.json");
-
+const admin = require("firebase-admin");
+const serviceAccount = require("./firebase-admin-key.json");
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
 });
@@ -47,13 +46,29 @@ const verifyToken = (req, res, next) => {
 
 const verifyFirebaseToken = async (req, res, next)=> {
   const authHeader = req.headers?.authorization
-  const token = authHeader.split(' '[1])
-  if(token){
+ 
+  if(!authHeader || !authHeader.startsWith('Bearer ')){
     return res.status(401).send({message: 'unauthorized access'})
   }
-  const userInfo = await admin.auth().verifyIdToken(token)
-  req.tokenEmail = userInfo.email
-  next()
+
+   const token = authHeader.split(' ')[1];
+
+   try{
+    const decoded = await admin.auth().verifyIdToken(token)
+    req.decoded = decoded
+    next()
+   }
+   catch(error){
+    return res.status(401).send({message: 'unauthorized access'})
+   }
+
+}
+
+const verifyTokenEmail = (req, res, next) => {
+    if(req.query.email !== req.decoded.email){
+      return res.status(403).send({message: 'forbidden access'})
+    }
+    next()
 }
 
 
@@ -107,7 +122,7 @@ async function run() {
       res.send(result);
     });
 
-     app.get('/jobs/applications', verifyToken,  async(req, res) => {
+     app.get('/jobs/applications',  logger, verifyFirebaseToken, verifyTokenEmail,  async(req, res) => {
       const email = req.query.email
       const query = {hr_email:email}
       const jobs = await jobsCollection.find(query).toArray()
@@ -148,13 +163,9 @@ async function run() {
     // })
 
    
-    app.get('/applications', logger, verifyFirebaseToken,  async (req, res) => {
-      const email = req.query.email
+    app.get('/applications', logger, verifyFirebaseToken, verifyTokenEmail,  async (req, res) => {
 
-     
-      if(req.tokenEmail !== email){
-        return res.status(403).send({message: 'forbidden access'})
-      }
+      const email = req.query.email
 
       const query = {
         applicant:email

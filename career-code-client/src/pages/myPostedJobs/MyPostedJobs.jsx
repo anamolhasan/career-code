@@ -1,21 +1,26 @@
-import React, { Suspense } from 'react'
-import useAuth from '../../hooks/useAuth'
-import JobList from './JobList'
-import { jobsCreatedByPromise } from '../../api/jobsApi'
+import React, { Suspense } from "react";
+import useAuth from "../../hooks/useAuth";
+import JobList from "./JobList";
+
+import Loading from "../Shared/Loading";
+import useJobApi from "../../api/useJobApi";
 
 const MyPostedJobs = () => {
-    const {user} = useAuth()
-    console.log(user)
+  const { user } = useAuth();
+  const {jobsCreatedByPromise} = useJobApi()
   return (
     <div>
-        <h2>MyPostedJobs : </h2>
-        <Suspense fallback={'loading.......'}>
-            <JobList 
-            jobsCreatedByPromise={jobsCreatedByPromise(user.email)}
-            />
-        </Suspense>
+      <h2>MyPostedJobs : </h2>
+      <Suspense fallback={<Loading />}>
+        <JobList
+          jobsCreatedByPromise={jobsCreatedByPromise(
+            user.email
+           
+          )}
+        />
+      </Suspense>
     </div>
-  )
-}
+  );
+};
 
-export default MyPostedJobs
+export default MyPostedJobs;
