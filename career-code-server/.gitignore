@@ -1,4 +1,4 @@
-**/node_modules/
+node_modules
 
 dist/
 build/
@@ -7,7 +7,7 @@ build/
 # career-code-server/firebase-admin-key.json
 
 # Node modules
- node_modules/
+#  node_modules/
 
 # Firebase Admin Key - very sensitive
  firebase-admin-key.json
