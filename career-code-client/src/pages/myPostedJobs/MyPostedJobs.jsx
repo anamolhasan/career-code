@@ -15,7 +15,7 @@ const MyPostedJobs = () => {
         <JobList
           jobsCreatedByPromise={jobsCreatedByPromise(
             user.email
-           
+          
           )}
         />
       </Suspense>

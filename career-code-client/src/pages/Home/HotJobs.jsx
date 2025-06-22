@@ -1,6 +1,6 @@
 import React, { use } from 'react'
 import JobCard from '../Shared/JobCard'
-import { div } from 'motion/react-client'
+
 
 const HotJobs = ({jobsPromise}) => {
 

@@ -4,10 +4,10 @@ import useAuth from './useAuth'
 
 
 const axiosInstance = axios.create({
-    baseURL:'http://localhost:3000'
+    baseURL:'https://career-code-server-lemon.vercel.app'
 })
 const useAxiosSecure = () => {
-    const {user} = useAuth()
+    const {user, signOutUser} = useAuth()
 
     axiosInstance.interceptors.request.use(config => {
         config.headers.Authorization = `Bearer ${user.accessToken}`
@@ -18,8 +18,14 @@ const useAxiosSecure = () => {
     axiosInstance.interceptors.response.use(response => {
         return response
     }, error => {
-        if(error.status === 401){
-            console.log('logout the user for 401')
+        if(error.status === 401 || error.status === 403){
+            signOutUser()
+             .then(()=>{
+                console.log('sign out user for 401 status code')
+             })
+             .catch(err => {
+                console.log(err)
+             })
         }
         return Promise.reject(error)
     }

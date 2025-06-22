@@ -3,7 +3,7 @@ import Banner from "./Banner";
 import HotJobs from "./HotJobs";
 
 
-const jobsPromise = fetch('http://localhost:3000/jobs').then(res => res.json())
+const jobsPromise = fetch('https://career-code-server-lemon.vercel.app/jobs').then(res => res.json())
 const Home = () => {
 
 

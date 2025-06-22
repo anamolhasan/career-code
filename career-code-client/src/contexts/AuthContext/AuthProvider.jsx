@@ -44,13 +44,13 @@ const AuthProvider = ({children}) => {
         setUser(currentUser)
         setLoading(false)
 
-        if(currentUser?.email){    
-          axios.post('http://localhost:3000/jwt',{email: currentUser.email}, {withCredentials:true})
-            .then(res => {
-              console.log('jwt token after',res.data)
-            })
-            .catch(error => console.log(error))
-        }
+        // if(currentUser?.email){    
+        //   axios.post('https://career-code-server-lemon.vercel.app/jwt',{email: currentUser.email}, {withCredentials:true})
+        //     .then(res => {
+        //       console.log('jwt token after',res.data)
+        //     })
+        //     .catch(error => console.log(error))
+        // }
       })
       return ()=> {
         unSubscribe()

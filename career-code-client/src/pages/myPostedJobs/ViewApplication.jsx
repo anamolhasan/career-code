@@ -9,7 +9,7 @@ const ViewApplication = () => {
 
   const handleStatusChange = (e, app_id)=> {
    
-    axios.patch(`http://localhost:3000/applications/${app_id}`, {status: e.target.value})
+    axios.patch(`https://career-code-server-lemon.vercel.app/applications/${app_id}`, {status: e.target.value})
       .then(res => {
          console.log(res.data)
           if (res.data.modifiedCount) {

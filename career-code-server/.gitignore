@@ -3,11 +3,6 @@ node_modules
 dist/
 build/
 
-# Firebase Admin Key
-# career-code-server/firebase-admin-key.json
-
-# Node modules
-#  node_modules/
-
-# Firebase Admin Key - very sensitive
- firebase-admin-key.json
+.vscode
+#  firebase-admin-key.json
+.vercel
